@@ -2,23 +2,20 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="dark:bg-gray-800">
+    <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-gradient-to-r from-gray-100 via-[#bce1ff] to-gray-100">
+      <div className="">
         <div className="dark:bg-transparent">
           <div className="mx-auto flex flex-col items-center py-12 sm:py-24">
-            <div className="w-11/12 sm:w-2/3 lg:flex justify-center items-center flex-col mb-5 sm:mb-10">
-              <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-5xl xl:text-6xl text-center text-gray-800 dark:text-white font-black leading-10">
-                Let's not stress for
+            <div className="lg:flex justify-center items-center flex-col mb-5 sm:mb-10">
+              <h1 className="text-2xl sm:text-5xl md:text-5xl lg:text-5xl xl:text-6xl text-center text-gray-800 dark:text-white font-black leading-10">
+                Let's{" "}
                 <span className="text-violet-800 dark:text-violet-500">
-                  Website
+                  build{" "}
                 </span>
-                designs.
+                a community
               </h1>
-              <p className="mt-5 sm:mt-10 lg:w-10/12 text-gray-600 dark:text-gray-300 font-normal text-center text-xl">
-                A Community build tailwind component library.
-              </p>
             </div>
-            <div className="flex w-11/12 md:w-8/12 xl:w-6/12">
+            <div className="flex w-full">
               <div className="flex rounded-md w-full">
                 <input
                   type="text"
@@ -47,6 +44,83 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      <>
+        {/* Featured section */}
+        <section className="py-20">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-gray-800 mb-8">
+              Featured Articles
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1519681393784-d120267933ba"
+                  alt="Coffee"
+                  className="w-full h-64 object-cover"
+                />
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-gray-800 mb-2">
+                    Single Origin Blend
+                  </h3>
+                  <p className="text-gray-700 text-base">
+                    Our most popular blend, featuring beans from a single farm
+                    in Ethiopia. Notes of chocolate, berries, and citrus.
+                  </p>
+                </div>
+              </div>
+              <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                <img
+                  src="https://plus.unsplash.com/premium_photo-1675716443562-b771d72a3da7"
+                  alt="Coffee"
+                  className="w-full h-64 object-cover"
+                />
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-gray-800 mb-2">
+                    Dark Roast Blend
+                  </h3>
+                  <p className="text-gray-700 text-base">
+                    A bold and flavorful blend of beans from Brazil, Colombia,
+                    and Indonesia. Notes of caramel, nuts, and tobacco.
+                  </p>
+                </div>
+              </div>
+              <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                <img
+                  src="https://plus.unsplash.com/premium_photo-1675716443562-b771d72a3da7"
+                  alt="Coffee"
+                  className="w-full h-64 object-cover"
+                />
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-gray-800 mb-2">
+                    Dark Roast Blend
+                  </h3>
+                  <p className="text-gray-700 text-base">
+                    A bold and flavorful blend of beans from Brazil, Colombia,
+                    and Indonesia. Notes of caramel, nuts, and tobacco.
+                  </p>
+                </div>
+              </div>
+              <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                <img
+                  src="https://plus.unsplash.com/premium_photo-1675716443562-b771d72a3da7"
+                  alt="Coffee"
+                  className="w-full h-64 object-cover"
+                />
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-gray-800 mb-2">
+                    Dark Roast Blend
+                  </h3>
+                  <p className="text-gray-700 text-base">
+                    A bold and flavorful blend of beans from Brazil, Colombia,
+                    and Indonesia. Notes of caramel, nuts, and tobacco.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </>
     </main>
   );
 }
