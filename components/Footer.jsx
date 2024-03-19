@@ -5,8 +5,8 @@ const Footer = () => {
   return (
     <>
       <div className="bg-white">
-        <div className="mx-auto py-16 sm:px-6 lg:px-8">
-          <div className="relative isolate overflow-hidden px-6 py-24 text-center sm:rounded-3xl sm:px-16">
+        <div className="mx-auto pt-2 pb-16 sm:px-6 lg:px-8">
+          <div className="relative isolate overflow-hidden px-6 pb-24 pt-16 text-center sm:rounded-3xl sm:px-16">
             <h2 className="font-nudge-extrabold mx-auto max-w-2xl text-3xl font-bold uppercase tracking-wide sm:text-4xl">
               Join our community now
             </h2>

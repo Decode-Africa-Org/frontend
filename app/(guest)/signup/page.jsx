@@ -2,6 +2,7 @@
 import axiosClient from "@/utils/axios";
 import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 const SingUp = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +11,7 @@ const SingUp = () => {
     password: "",
     password_confirmation: "",
   });
+  const router = useRouter();
 
   const handleChange = (event) => {
     setFormData({
@@ -21,14 +23,20 @@ const SingUp = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post(
-        `http://localhost:8000/api/register`,
-        formData
-      );
-      console.log(
-        "login registration data, upon submitting form data " + response.data
-      );
-    } catch (error) {}
+      const response = await axiosClient.post(`/api/register`, formData);
+      console.log("token goes here " + response.data.token);
+
+      const storeData = (token, userData) => {
+        localStorage.setItem("token", token);
+        localStorage.setItem("userData", JSON.stringify(userData));
+        console.log("token goes here after setting in Local storege " + token);
+        router.push("/");
+      };
+
+      storeData(response.data.token, response.data.user); // Call the callback
+    } catch (error) {
+      // ... error handling
+    }
   };
 
   return (

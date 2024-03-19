@@ -1,12 +1,14 @@
 "use client";
 import axiosClient from "@/utils/axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const router = useRouter();
   const [error, setErrorMessage] = useState("");
 
   const handleChange = (event) => {
@@ -20,13 +22,18 @@ const Login = () => {
     event.preventDefault();
     try {
       const response = await axiosClient.post(`/api/login`, formData);
-      console.log("successully logged in " + response.data);
+      console.log("token goes here " + response.data.token);
+
+      const storeData = (token, userData) => {
+        localStorage.setItem("token", token);
+        localStorage.setItem("userData", JSON.stringify(userData));
+        console.log("token goes here after setting in Local storege " + token);
+        router.push("/");
+      };
+
+      storeData(response.data.token, response.data.user); // Call the callback
     } catch (error) {
-      if (error.response) {
-        setErrorMessage(error.response.data.message);
-      } else {
-        setErrorMessage("An error occurred during login. Please try again.");
-      }
+      // ... error handling
     }
   };
   return (
@@ -72,7 +79,7 @@ const Login = () => {
                     onChange={handleChange}
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                   />
-                  <div className="hidden absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                  <div className=" absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                     <svg
                       className="h-5 w-5 text-red-500"
                       fill="currentColor"
