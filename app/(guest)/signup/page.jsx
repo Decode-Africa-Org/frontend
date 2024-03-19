@@ -1,5 +1,30 @@
+import axiosClient from "@/utils/axios";
 import Link from "next/link";
+import { useState } from "react";
 const SingUp = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    password_confirmation: "",
+  });
+
+  const handleChange = (event) => {
+    formData({
+      ...formData,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const response = await axiosClient.post(`/api/register`, formData);
+      console.log(
+        "login registration data, upon submitting form data " + response.data
+      );
+    } catch (error) {}
+  };
+
   return (
     <>
       <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -24,7 +49,7 @@ const SingUp = () => {
         </div>
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <form method="POST" action="#">
+            <form onSubmit={handleSubmit}>
               <div>
                 <label
                   htmlFor="email"
@@ -40,6 +65,8 @@ const SingUp = () => {
                     type="text"
                     required=""
                     defaultValue=""
+                    value={formData.name}
+                    onChange={handleChange}
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                   />
                   <div className="hidden absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
@@ -73,6 +100,8 @@ const SingUp = () => {
                     type="email"
                     required=""
                     defaultValue=""
+                    value={formData.email}
+                    onChange={handleChange}
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5
           "
                   />
@@ -104,6 +133,8 @@ const SingUp = () => {
                     name="password"
                     type="password"
                     required=""
+                    value={formData.password}
+                    onChange={handleChange}
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                   />
                 </div>
@@ -121,6 +152,8 @@ const SingUp = () => {
                     name="password_confirmation"
                     type="password"
                     required=""
+                    value={formData.password_confirmation}
+                    onChange={handleChange}
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                   />
                 </div>

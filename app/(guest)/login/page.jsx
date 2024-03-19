@@ -1,6 +1,34 @@
 "use client";
+import axiosClient from "@/utils/axios";
 import Link from "next/link";
+import { useState } from "react";
 const Login = () => {
+  const [formData, setFormDate] = useState({
+    email: "",
+    password: "",
+  });
+  const [error, setErrorMessage] = useState("");
+
+  const handleChange = (event) => {
+    setFormDate({
+      ...formData,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axiosClient.post(`/api/login`, formData);
+      console.log("successully logged in " + response.data);
+    } catch (error) {
+      if (error.response) {
+        setErrorMsg(error.response.data.message);
+      } else {
+        setErrorMsg("An error occurred during login. Please try again.");
+      }
+    }
+  };
   return (
     <>
       <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 px-6">
@@ -25,7 +53,7 @@ const Login = () => {
         </div>
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <form>
+            <form onSubmit={handleLogin}>
               <div>
                 <label
                   htmlFor="email"
@@ -41,6 +69,8 @@ const Login = () => {
                     type="email"
                     required=""
                     defaultValue=""
+                    value={formData.email}
+                    onChange={handleChange}
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                   />
                   <div className="hidden absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
@@ -71,6 +101,8 @@ const Login = () => {
                     name="password"
                     type="password"
                     required=""
+                    value={formData.password}
+                    onChange={handleChange}
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                   />
                 </div>
