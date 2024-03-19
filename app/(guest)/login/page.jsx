@@ -3,14 +3,14 @@ import axiosClient from "@/utils/axios";
 import Link from "next/link";
 import { useState } from "react";
 const Login = () => {
-  const [formData, setFormDate] = useState({
+  const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
   const [error, setErrorMessage] = useState("");
 
   const handleChange = (event) => {
-    setFormDate({
+    setFormData({
       ...formData,
       [event.target.name]: event.target.value,
     });
@@ -23,9 +23,9 @@ const Login = () => {
       console.log("successully logged in " + response.data);
     } catch (error) {
       if (error.response) {
-        setErrorMsg(error.response.data.message);
+        setErrorMessage(error.response.data.message);
       } else {
-        setErrorMsg("An error occurred during login. Please try again.");
+        setErrorMessage("An error occurred during login. Please try again.");
       }
     }
   };
@@ -67,8 +67,7 @@ const Login = () => {
                     name="email"
                     placeholder="user@example.com"
                     type="email"
-                    required=""
-                    defaultValue=""
+                    required
                     value={formData.email}
                     onChange={handleChange}
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"

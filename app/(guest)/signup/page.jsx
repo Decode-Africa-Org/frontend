@@ -1,4 +1,6 @@
+"use client";
 import axiosClient from "@/utils/axios";
+import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
 const SingUp = () => {
@@ -10,15 +12,19 @@ const SingUp = () => {
   });
 
   const handleChange = (event) => {
-    formData({
+    setFormData({
       ...formData,
       [event.target.name]: event.target.value,
     });
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     try {
-      const response = await axiosClient.post(`/api/register`, formData);
+      const response = await axios.post(
+        `http://localhost:8000/api/register`,
+        formData
+      );
       console.log(
         "login registration data, upon submitting form data " + response.data
       );
@@ -63,8 +69,7 @@ const SingUp = () => {
                     name="name"
                     placeholder="John Doe"
                     type="text"
-                    required=""
-                    defaultValue=""
+                    required
                     value={formData.name}
                     onChange={handleChange}
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
@@ -98,8 +103,7 @@ const SingUp = () => {
                     name="email"
                     placeholder="user@example.com"
                     type="email"
-                    required=""
-                    defaultValue=""
+                    required
                     value={formData.email}
                     onChange={handleChange}
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5
