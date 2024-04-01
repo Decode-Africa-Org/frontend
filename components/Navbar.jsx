@@ -1,7 +1,16 @@
 "use client";
 import Link from "next/link";
-const token = localStorage.getItem("token");
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setToken } from "@/store/features/auth/authSlice";
+
 const Navbar = () => {
+  const { token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    dispatch(setToken({ token: storedToken }));
+  }, [token]);
   return (
     <>
       <nav className=" sm:shadow-sm bg-white border-gray-300 py-2.5 dark:bg-gray-900">

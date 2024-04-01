@@ -3,6 +3,9 @@ import axiosClient from "@/utils/axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { loginSuccess, loginFailure } from "@/store/features/auth/authSlice";
+
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
@@ -10,6 +13,7 @@ const Login = () => {
   });
   const router = useRouter();
   const [error, setErrorMessage] = useState("");
+  const dispatch = useDispatch();
 
   const handleChange = (event) => {
     setFormData({
@@ -22,18 +26,16 @@ const Login = () => {
     event.preventDefault();
     try {
       const response = await axiosClient.post(`/api/login`, formData);
-      console.log("token goes here " + response.data.token);
-
-      const storeData = (token, userData) => {
-        localStorage.setItem("token", token);
-        localStorage.setItem("userData", JSON.stringify(userData));
-        console.log("token goes here after setting in Local storege " + token);
-        router.push("/");
-      };
-
-      storeData(response.data.token, response.data.user); // Call the callback
+      dispatch(
+        loginSuccess({
+          token: response.data.token,
+          userData: response.data.user,
+        })
+      );
+      router.push("/");
     } catch (error) {
-      // ... error handling
+      dispatch(loginFailure(error));
+      setErrorMessage("Invalid login credentials");
     }
   };
   return (
